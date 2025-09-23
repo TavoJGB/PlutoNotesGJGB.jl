@@ -5,6 +5,6 @@ module GJGB_Notes
 
     # Load dependencies
     include("./dep/Aux_Functions.jl")
-    export cita
+    export cita, resaltar
 
 end

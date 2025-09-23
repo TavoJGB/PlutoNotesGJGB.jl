@@ -60,3 +60,5 @@ function cita(texto, autor="", obra="")
 		</style>
     """)
 end
+
+resaltar(texto; color="orange") = "<span style=color:$color><strong>" * texto * "</strong></span>"

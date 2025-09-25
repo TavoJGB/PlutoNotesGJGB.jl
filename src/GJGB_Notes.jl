@@ -1,6 +1,7 @@
 module GJGB_Notes
 
     # Packages
+    using Markdown
     using HypertextLiteral: @htl, @htl_str # necesario para cita()
 
     # Load dependencies

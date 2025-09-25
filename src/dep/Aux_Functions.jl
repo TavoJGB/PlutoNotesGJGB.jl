@@ -12,7 +12,7 @@ function cita(texto, autor="", obra="")
 			</div>
 		</div>
 		<div class="nice-blockquote__author">
-			$linea_autor
+			$(HTML(linea_autor))
 		</div>
 		<style> 
 			.nice-blockquote--quoted::before{
@@ -62,3 +62,4 @@ function cita(texto, autor="", obra="")
 end
 
 resaltar(texto; color="orange") = "<span style=color:$color><strong>" * texto * "</strong></span>"
+enlace(texto, url) = """<a href="$url" target="_blank">$texto</a>"""

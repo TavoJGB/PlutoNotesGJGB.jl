@@ -1,3 +1,26 @@
+#===========================================================================
+    CORRECCIÓN DE RESPUESTAS
+===========================================================================#
+
+apoyos(::Español) = ["¡Espléndido!", "¡Fabuloso!", "¡Eres un máquina!", "¡Estás en racha!", "¡Bien hecho! 🎉", "¡Me has leído el pensamiento!"];
+correcto(::Español; texto=md"Sigue así 💪") = Markdown.MD(Markdown.Admonition("correct", rand(apoyos(::Español)), [texto]))
+mejorable(::Español; texto=md"¡Concéntrate!") = Markdown.MD(Markdown.Admonition("danger", "Sigue intentándolo", [texto]))
+
+
+
+#===========================================================================
+    FORMATO DE TEXTO
+===========================================================================#
+
+resaltar(texto; color="orange") = "<span style=color:$color><strong>" * texto * "</strong></span>"
+enlace(texto, url) = """<a href="$url" target="_blank">$texto</a>"""
+
+
+
+#===========================================================================
+    CITACIÓN
+===========================================================================#
+
 function cita(texto, autor="", obra="")
 	 # Construir la línea del autor condicionalmente
     linea_autor = if obra != ""
@@ -60,6 +83,3 @@ function cita(texto, autor="", obra="")
 		</style>
     """)
 end
-
-resaltar(texto; color="orange") = "<span style=color:$color><strong>" * texto * "</strong></span>"
-enlace(texto, url) = """<a href="$url" target="_blank">$texto</a>"""

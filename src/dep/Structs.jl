@@ -19,5 +19,5 @@ struct Ejercicio{T}
     texto_acierto::Union{String, Markdown.MD}
     texto_ayuda::Union{String, Markdown.MD}
     # Constructor
-    Ejercicio(respuesta_usuario::T, respuesta_correcta::T; texto_acierto="", texto_ayuda="") = new{T}(respuesta_usuario, respuesta_correcta, texto_acierto, texto_ayuda)
+    Ejercicio(respuesta_usuario::T, respuesta_correcta::T; texto_acierto="", texto_ayuda="") where {T<:Any} = new{T}(respuesta_usuario, respuesta_correcta, texto_acierto, texto_ayuda)
 end

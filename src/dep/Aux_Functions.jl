@@ -13,7 +13,7 @@ function corregir(ejer::Ejercicio, idioma::Idioma)
 	if respuesta_usuario==[respuesta_correcta]
 		return correcto(idioma; texto=texto_acierto)
 	else
-		if respuesta_usuario==[]
+		if isnothing(respuesta_usuario)
 			return nothing
 		else
 			return mejorable(idioma; texto=texto_ayuda)

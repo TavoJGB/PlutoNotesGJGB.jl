@@ -10,7 +10,7 @@ mejorable(::Español; texto=md"¡Concéntrate!") = Markdown.MD(Markdown.Admoniti
 # Corregir ejercicio
 function corregir(ejer::Ejercicio, idioma::Idioma)
 	@unpack respuesta_usuario, respuesta_correcta, texto_acierto, texto_ayuda = ejer
-	if respuesta_usuario==[respuesta_correcta]
+	if respuesta_usuario==respuesta_correcta
 		return correcto(idioma; texto=texto_acierto)
 	else
 		if isnothing(respuesta_usuario)

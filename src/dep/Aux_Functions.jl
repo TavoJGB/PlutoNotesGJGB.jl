@@ -8,7 +8,7 @@ correcto(::Español; texto=md"Sigue así 💪") = Markdown.MD(Markdown.Admonitio
 mejorable(::Español; texto=md"¡Concéntrate!") = Markdown.MD(Markdown.Admonition("danger", "Sigue intentándolo", [texto]))
 
 # Corregir ejercicio
-function corregir(idioma::Idioma, ejer::Ejercicio)
+function corregir(ejer::Ejercicio, idioma::Idioma)
 	@unpack respuesta_usuario, respuesta_correcta, texto_acierto, texto_ayuda = ejer
 	if respuesta_usuario==[respuesta_correcta]
 		return correcto(idioma; texto=texto_acierto)

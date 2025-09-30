@@ -16,6 +16,6 @@ struct Français <: Idioma end
 struct Ejercicio{T}
     respuesta_usuario::T
     respuesta_correcta::T
-    texto_acierto::String
-    texto_ayuda::String
+    texto_acierto::Union{String, Markdown.MD}
+    texto_ayuda::Union{String, Markdown.MD}
 end

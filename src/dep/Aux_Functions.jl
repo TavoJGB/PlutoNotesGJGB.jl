@@ -157,7 +157,6 @@ const CUADROS_CSS = """
     padding: 12px;
     color: #7f1d1d;
     line-height: 1.6;
-    font-weight: 500;
 }
 
 /* Recuerdo - Rosa */
@@ -184,7 +183,6 @@ const CUADROS_CSS = """
     padding: 12px;
     color: #831843;
     line-height: 1.6;
-    font-style: italic;
 }
 
 /* Concepto - Azul */
@@ -211,9 +209,6 @@ const CUADROS_CSS = """
     padding: 12px;
     color: #1e3a8a;
     line-height: 1.6;
-    border-left: 4px solid #93c5fd;
-    margin-left: 8px;
-    padding-left: 16px;
 }
 
 /* Dark mode styles */
@@ -230,9 +225,9 @@ const CUADROS_CSS = """
     .memory-header { background-color: #f472b6; color: #1a1a1a; }
     .memory-content { color: #fbcfe8; }
     
-    .concept-box { background-color: #1e3a8a; border-color: #60a5fa; }
-    .concept-header { background-color: #3b82f6; color: #1a1a1a; }
-    .concept-content { color: #bfdbfe; border-left-color: #3b82f6; }
+    .concept-box { background-color: #2a4973; border-color: #60a5fa; }
+    .concept-header { background-color: #5c8ccd; color: #1a1a1a; }
+    .concept-content { color: #bfdbfe; }
 }
 </style>
 """

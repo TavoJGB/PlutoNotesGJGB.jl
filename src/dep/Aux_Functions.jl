@@ -105,7 +105,8 @@ end
 ===========================================================================#
 
 # Función base modular para crear cuadros de texto estilizados
-function cuadro_base(titulo, contenido, tema)
+cuadro_base(titulo::String, contenido, tema::Symbol) = cuadro_base(titulo, HTML(contenido), tema)
+function cuadro_base(titulo::String, contenido::Union{Markdown.MD,HTML}, tema::Symbol)
     # Configuraciones de temas
     temas = Dict(
         :truco => Dict(
@@ -227,7 +228,7 @@ function cuadro_base(titulo, contenido, tema)
             $(config[:icono]) $(titulo)
         </div>
         <div class="$(clase)-content">
-            $(HTML(contenido))
+            $(contenido)
         </div>
     </div>
     """)

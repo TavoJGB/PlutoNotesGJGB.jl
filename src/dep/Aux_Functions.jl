@@ -111,7 +111,7 @@ const CUADROS_CSS = """
 .reminder-box {
     border: 4px solid #9d4edd;
     background-color: #f8f4ff;
-    border-radius: 4px;
+    border-radius: 8px;
     margin: 1em 0;
     overflow: hidden;
     box-shadow: 0 2px 4px #9d4edd20;
@@ -119,9 +119,9 @@ const CUADROS_CSS = """
 .reminder-header {
     background-color: #9d4edd;
     color: white;
-    padding: 8px 12px;
+    padding: 4px 2px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin: 0;
     display: flex;
     align-items: center;
@@ -137,7 +137,7 @@ const CUADROS_CSS = """
 .warning-box {
     border: 4px solid #dc2626;
     background-color: #fef2f2;
-    border-radius: 4px;
+    border-radius: 6px;
     margin: 1em 0;
     overflow: hidden;
     box-shadow: 0 2px 4px #dc262620;
@@ -145,13 +145,12 @@ const CUADROS_CSS = """
 .warning-header {
     background-color: #dc2626;
     color: white;
-    padding: 8px 12px;
+    padding: 4px 2px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 .warning-content {
     padding: 12px;
@@ -171,13 +170,13 @@ const CUADROS_CSS = """
 .memory-header {
     background-color: #ec4899;
     color: white;
-    padding: 8px 12px;
+    padding: 4px 2px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 .memory-content {
     padding: 12px;
@@ -197,16 +196,16 @@ const CUADROS_CSS = """
 .concept-header {
     background-color: #2563eb;
     color: white;
-    padding: 8px 12px;
+    padding: 4px 2px;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 .concept-content {
-    padding: 12px;
+    padding: 6px;
     color: #1e3a8a;
     line-height: 1.6;
 }

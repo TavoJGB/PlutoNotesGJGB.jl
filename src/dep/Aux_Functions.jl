@@ -127,7 +127,7 @@ const CUADROS_CSS = """
 }
 
 .cuadro-base-content {
-    padding: 12px;
+    padding: 6px;
     line-height: 1.6;
 }
 

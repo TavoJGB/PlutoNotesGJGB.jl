@@ -107,19 +107,17 @@ end
 # CSS global - se define una sola vez
 const CUADROS_CSS = """
 <style>
-/* Truco - Morado */
-.reminder-box {
-    border: 4px solid #9d4edd;
-    background-color: #f8f4ff;
+/* CLASE BASE - Estructura común para todos los cuadros */
+.cuadro-base {
+    border: 4px solid;
     border-radius: 8px;
     margin: 1em 0;
     overflow: hidden;
-    box-shadow: 0 2px 4px #9d4edd20;
 }
-.reminder-header {
-    background-color: #9d4edd;
+
+.cuadro-base-header {
     color: white;
-    padding: 4px 2px;
+    padding: 2px 2px;
     font-weight: bold;
     font-size: 1.2em;
     margin: 0;
@@ -127,106 +125,111 @@ const CUADROS_CSS = """
     align-items: center;
     gap: 8px;
 }
-.reminder-content {
+
+.cuadro-base-content {
     padding: 12px;
-    color: #2d3748;
     line-height: 1.6;
+}
+
+/* MODIFICADORES DE COLOR - Solo definen colores específicos */
+
+/* Truco - Morado */
+.cuadro-truco {
+    border-color: #9d4edd;
+    background-color: #f8f4ff;
+}
+.cuadro-truco .cuadro-base-header {
+    background-color: #9d4edd;
+}
+.cuadro-truco .cuadro-base-content {
+    color: #2d3748;
 }
 
 /* Cuidado - Rojo */
-.warning-box {
-    border: 4px solid #dc2626;
+.cuadro-cuidado {
+    border-color: #dc2626;
     background-color: #fef2f2;
-    border-radius: 8px;
-    margin: 1em 0;
-    overflow: hidden;
-    box-shadow: 0 2px 4px #dc262620;
 }
-.warning-header {
+.cuadro-cuidado .cuadro-base-header {
     background-color: #dc2626;
-    color: white;
-    padding: 4px 2px;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 0;
-    display: flex;
-    align-items: center;
 }
-.warning-content {
-    padding: 12px;
+.cuadro-cuidado .cuadro-base-content {
     color: #7f1d1d;
-    line-height: 1.6;
 }
 
 /* Recuerdo - Rosa */
-.memory-box {
-    border: 4px solid #ec4899;
+.cuadro-recuerdo {
+    border-color: #ec4899;
     background-color: #fdf2f8;
-    border-radius: 8px;
-    margin: 1em 0;
-    overflow: hidden;
-    box-shadow: 0 2px 4px #ec489920;
 }
-.memory-header {
+.cuadro-recuerdo .cuadro-base-header {
     background-color: #ec4899;
-    color: white;
-    padding: 4px 2px;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
-.memory-content {
-    padding: 12px;
+.cuadro-recuerdo .cuadro-base-content {
     color: #831843;
-    line-height: 1.6;
 }
 
 /* Concepto - Azul */
-.concept-box {
-    border: 4px solid #2563eb;
+.cuadro-concepto {
+    border-color: #2563eb;
     background-color: #eff6ff;
-    border-radius: 8px;
-    margin: 1em 0;
-    overflow: hidden;
-    box-shadow: 0 2px 4px #2563eb20;
 }
-.concept-header {
+.cuadro-concepto .cuadro-base-header {
     background-color: #2563eb;
-    color: white;
-    padding: 4px 2px;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
-.concept-content {
-    padding: 6px;
+.cuadro-concepto .cuadro-base-content {
     color: #1e3a8a;
-    line-height: 1.6;
 }
 
-/* Dark mode styles */
+/* Dark mode styles - Solo modificadores de color */
 @media (prefers-color-scheme: dark) {
-    .reminder-box { background-color: #2a1f3d; border-color: #b794f6; }
-    .reminder-header { background-color: #b794f6; color: #1a1a1a; }
-    .reminder-content { color: #e2e8f0; }
+    .cuadro-truco {
+        background-color: #2a1f3d;
+        border-color: #b794f6;
+    }
+    .cuadro-truco .cuadro-base-header {
+        background-color: #b794f6;
+        color: #1a1a1a;
+    }
+    .cuadro-truco .cuadro-base-content {
+        color: #e2e8f0;
+    }
     
-    .warning-box { background-color: #450a0a; border-color: #ef4444; }
-    .warning-header { background-color: #ef4444; color: #1a1a1a; }
-    .warning-content { color: #fca5a5; }
+    .cuadro-cuidado {
+        background-color: #450a0a;
+        border-color: #ef4444;
+    }
+    .cuadro-cuidado .cuadro-base-header {
+        background-color: #ef4444;
+        color: #1a1a1a;
+    }
+    .cuadro-cuidado .cuadro-base-content {
+        color: #fca5a5;
+    }
     
-    .memory-box { background-color: #732a51; border-color: #f472b6; }
-    .memory-header { background-color: #f472b6; color: #1a1a1a; }
-    .memory-content { color: #fbcfe8; }
+    .cuadro-recuerdo {
+        background-color: #732a51;
+        border-color: #f472b6;
+    }
+    .cuadro-recuerdo .cuadro-base-header {
+        background-color: #f472b6;
+        color: #1a1a1a;
+    }
+    .cuadro-recuerdo .cuadro-base-content {
+        color: #fbcfe8;
+    }
     
-    .concept-box { background-color: #2a4973; border-color: #5c8ccd; }
-    .concept-header { background-color: #5c8ccd; color: #1a1a1a; }
-    .concept-content { color: #bfdbfe; }
+    .cuadro-concepto {
+        background-color: #2a4973;
+        border-color: #5c8ccd;
+    }
+    .cuadro-concepto .cuadro-base-header {
+        background-color: #5c8ccd;
+        color: #1a1a1a;
+    }
+    .cuadro-concepto .cuadro-base-content {
+        color: #bfdbfe;
+    }
 }
 </style>
 """
@@ -258,10 +261,10 @@ end
 
 # Configuración de temas (solo metadatos)
 const TEMAS_CONFIG = Dict(
-    :recuerdo => (clase="memory", icono="💭"),
-    :cuidado => (clase="warning", icono="⚠️"),
-    :truco => (clase="reminder", icono="💡"),
-    :concepto => (clase="concept", icono="📝")
+    :recuerdo => (clase="cuadro-recuerdo", icono="💭"),
+    :cuidado => (clase="cuadro-cuidado", icono="⚠️"),
+    :truco => (clase="cuadro-truco", icono="💡"),
+    :concepto => (clase="cuadro-concepto", icono="📝")
 )
 
 # Función base optimizada - solo genera HTML, no CSS
@@ -273,11 +276,11 @@ function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML}, 
     
     @htl("""
     $(incluir_css_cuadros())
-    <div class="$(config.clase)-box">
-        <div class="$(config.clase)-header">
+    <div class="cuadro-base $(config.clase)">
+        <div class="cuadro-base-header">
             $(config.icono) $(titulo)
         </div>
-        <div class="$(config.clase)-content">
+        <div class="cuadro-base-content">
             $(contenido_html)
         </div>
     </div>
@@ -292,9 +295,9 @@ function truco(titulo, contenido)
     contenido_html = contenido isa String ? HTML(contenido) : contenido
     @htl("""
     $(incluir_css_cuadros())
-    <div class="reminder-box">
-        <div class="reminder-header">💡 $(titulo)</div>
-        <div class="reminder-content">$(contenido_html)</div>
+    <div class="cuadro-base cuadro-truco">
+        <div class="cuadro-base-header">💡 $(titulo)</div>
+        <div class="cuadro-base-content">$(contenido_html)</div>
     </div>
     """)
 end
@@ -303,9 +306,9 @@ function cuidado(titulo, contenido)
     contenido_html = contenido isa String ? HTML(contenido) : contenido
     @htl("""
     $(incluir_css_cuadros())
-    <div class="warning-box">
-        <div class="warning-header">⚠️ $(titulo)</div>
-        <div class="warning-content">$(contenido_html)</div>
+    <div class="cuadro-base cuadro-cuidado">
+        <div class="cuadro-base-header">⚠️ $(titulo)</div>
+        <div class="cuadro-base-content">$(contenido_html)</div>
     </div>
     """)
 end
@@ -314,9 +317,9 @@ function recuerdo(titulo, contenido)
     contenido_html = contenido isa String ? HTML(contenido) : contenido
     @htl("""
     $(incluir_css_cuadros())
-    <div class="memory-box">
-        <div class="memory-header">💭 $(titulo)</div>
-        <div class="memory-content">$(contenido_html)</div>
+    <div class="cuadro-base cuadro-recuerdo">
+        <div class="cuadro-base-header">💭 $(titulo)</div>
+        <div class="cuadro-base-content">$(contenido_html)</div>
     </div>
     """)
 end
@@ -325,9 +328,9 @@ function concepto(titulo, contenido)
     contenido_html = contenido isa String ? HTML(contenido) : contenido
     @htl("""
     $(incluir_css_cuadros())
-    <div class="concept-box">
-        <div class="concept-header">📝 $(titulo)</div>
-        <div class="concept-content">$(contenido_html)</div>
+    <div class="cuadro-base cuadro-concepto">
+        <div class="cuadro-base-header">📝 $(titulo)</div>
+        <div class="cuadro-base-content">$(contenido_html)</div>
     </div>
     """)
 end

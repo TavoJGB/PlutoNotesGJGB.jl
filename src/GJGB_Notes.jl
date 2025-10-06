@@ -10,5 +10,6 @@ module GJGB_Notes
     export Español, English, Français, Ejercicio
     include("./dep/Aux_Functions.jl")
     export cita, resaltar, enlace, corregir
+    export recuerdo
     
 end

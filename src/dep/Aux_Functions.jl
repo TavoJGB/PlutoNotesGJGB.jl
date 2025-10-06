@@ -97,3 +97,64 @@ function cita(texto, autor="", obra="")
 		</style>
     """)
 end
+
+
+
+#===========================================================================
+    CUADROS DE TEXTO
+===========================================================================#
+
+function recuerdo(titulo, contenido)
+	@htl("""
+	<style>
+	.reminder-box {
+		border: 4px solid #9d4edd;
+		background-color: #f8f4ff;
+		border-radius: 4px;
+		margin: 1em 0;
+		overflow: hidden;
+	}
+	
+	.reminder-header {
+		background-color: #9d4edd;
+		color: white;
+		padding: 6px 12px;
+		font-weight: bold;
+		font-size: 1.1em;
+		margin: 0;
+	}
+	
+	.reminder-content {
+		padding: 12px;
+		color: #2d3748;
+		line-height: 1.6;
+	}
+	
+	/* Dark mode styles */
+	@media (prefers-color-scheme: dark) {
+		.reminder-box {
+			background-color: #2a1f3d;
+			border-color: #b794f6;
+			border-left-color: #b794f6;
+		}
+		
+		.reminder-header {
+			background-color: #b794f6;
+			color: #1a1a1a;
+		}
+		
+		.reminder-content {
+			color: #e2e8f0;
+		}
+	}
+	</style>
+	<div class="reminder-box">
+		<div class="reminder-header">
+			💭 $(titulo)
+		</div>
+		<div class="reminder-content">
+			$(HTML(contenido))
+		</div>
+	</div>
+	""")
+end

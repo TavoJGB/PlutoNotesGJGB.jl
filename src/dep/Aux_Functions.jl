@@ -204,7 +204,7 @@ const CUADROS_CSS = """
         color: #1a1a1a;
     }
     .cuadro-cuidado .cuadro-base-content {
-        color: #fca5a5;
+        color: #fbcfcf;
     }
     
     .cuadro-recuerdo {

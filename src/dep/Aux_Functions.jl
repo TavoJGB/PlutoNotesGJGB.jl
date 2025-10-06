@@ -104,131 +104,175 @@ end
     CUADROS DE TEXTO
 ===========================================================================#
 
-# Función base modular para crear cuadros de texto estilizados
-cuadro_base(titulo::String, contenido, tema::Symbol) = cuadro_base(titulo, HTML(contenido), tema)
-function cuadro_base(titulo::String, contenido::Union{Markdown.MD,HTML}, tema::Symbol)
-    # Configuraciones de temas
-    temas = Dict(
-        :truco => Dict(
-            :clase => "reminder",
-            :color_borde => "#9d4edd",
-            :color_fondo => "#f8f4ff",
-            :color_header => "#9d4edd",
-            :color_texto => "#2d3748",
-            :fondo_dark => "#2a1f3d",
-            :borde_dark => "#b794f6",
-            :header_dark => "#b794f6",
-            :texto_dark => "#e2e8f0",
-            :icono => "💡",
-            :estilo_contenido => ""
-        ),
-        :cuidado => Dict(
-            :clase => "warning",
-            :color_borde => "#dc2626",
-            :color_fondo => "#fef2f2",
-            :color_header => "#dc2626",
-            :color_texto => "#7f1d1d",
-            :fondo_dark => "#450a0a",
-            :borde_dark => "#f87171",
-            :header_dark => "#ef4444",
-            :texto_dark => "#fca5a5",
-            :icono => "⚠️",
-            :estilo_contenido => "font-weight: 500;"
-        ),
-        :recuerdo => Dict(
-            :clase => "memory",
-            :color_borde => "#ec4899",
-            :color_fondo => "#fdf2f8",
-            :color_header => "#ec4899",
-            :color_texto => "#831843",
-            :fondo_dark => "#500724",
-            :borde_dark => "#f472b6",
-            :header_dark => "#f472b6",
-            :texto_dark => "#fbcfe8",
-            :icono => "💭",
-            :estilo_contenido => "font-style: italic;"
-        ),
-        :concepto => Dict(
-            :clase => "concept",
-            :color_borde => "#2563eb",
-            :color_fondo => "#eff6ff",
-            :color_header => "#2563eb",
-            :color_texto => "#1e3a8a",
-            :fondo_dark => "#1e3a8a",
-            :borde_dark => "#60a5fa",
-            :header_dark => "#3b82f6",
-            :texto_dark => "#bfdbfe",
-            :icono => "📝",
-            :estilo_contenido => "border-left: 4px solid #93c5fd; margin-left: 8px; padding-left: 16px;"
-        )
-    )
+# CSS global - se define una sola vez
+const CUADROS_CSS = """
+<style>
+/* Truco - Morado */
+.reminder-box {
+    border: 4px solid #9d4edd;
+    background-color: #f8f4ff;
+    border-radius: 4px;
+    margin: 1em 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px #9d4edd20;
+}
+.reminder-header {
+    background-color: #9d4edd;
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.reminder-content {
+    padding: 12px;
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+/* Cuidado - Rojo */
+.warning-box {
+    border: 4px solid #dc2626;
+    background-color: #fef2f2;
+    border-radius: 4px;
+    margin: 1em 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px #dc262620;
+}
+.warning-header {
+    background-color: #dc2626;
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.warning-content {
+    padding: 12px;
+    color: #7f1d1d;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Recuerdo - Rosa */
+.memory-box {
+    border: 4px solid #ec4899;
+    background-color: #fdf2f8;
+    border-radius: 4px;
+    margin: 1em 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px #ec489920;
+}
+.memory-header {
+    background-color: #ec4899;
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.memory-content {
+    padding: 12px;
+    color: #831843;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Concepto - Azul */
+.concept-box {
+    border: 4px solid #2563eb;
+    background-color: #eff6ff;
+    border-radius: 4px;
+    margin: 1em 0;
+    overflow: hidden;
+    box-shadow: 0 2px 4px #2563eb20;
+}
+.concept-header {
+    background-color: #2563eb;
+    color: white;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.concept-content {
+    padding: 12px;
+    color: #1e3a8a;
+    line-height: 1.6;
+    border-left: 4px solid #93c5fd;
+    margin-left: 8px;
+    padding-left: 16px;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    .reminder-box { background-color: #2a1f3d; border-color: #b794f6; }
+    .reminder-header { background-color: #b794f6; color: #1a1a1a; }
+    .reminder-content { color: #e2e8f0; }
     
-    config = temas[tema]
-    clase = config[:clase]
+    .warning-box { background-color: #450a0a; border-color: #f87171; }
+    .warning-header { background-color: #ef4444; color: #1a1a1a; }
+    .warning-content { color: #fca5a5; }
     
-    # Generar CSS específico para el tema
-    css_extra = tema == :concepto ? 
-        """
-        .$(clase)-content {
-            border-left-color: $(config[:header_dark]) !important;
-        }
-        """ : ""
+    .memory-box { background-color: #500724; border-color: #f472b6; }
+    .memory-header { background-color: #f472b6; color: #1a1a1a; }
+    .memory-content { color: #fbcfe8; }
+    
+    .concept-box { background-color: #1e3a8a; border-color: #60a5fa; }
+    .concept-header { background-color: #3b82f6; color: #1a1a1a; }
+    .concept-content { color: #bfdbfe; border-left-color: #3b82f6; }
+}
+</style>
+"""
+
+# Variable para controlar si ya se incluyó el CSS
+const CSS_INCLUIDO = Ref(false)
+
+# Función para incluir CSS solo una vez
+function incluir_css_cuadros()
+    if !CSS_INCLUIDO[]
+        CSS_INCLUIDO[] = true
+        return HTML(CUADROS_CSS)
+    else
+        return HTML("")  # No incluir CSS adicional
+    end
+end
+
+# Configuración de temas (solo metadatos)
+const TEMAS_CONFIG = Dict(
+    :recuerdo => (clase="memory", icono="💭"),
+    :cuidado => (clase="warning", icono="⚠️"),
+    :truco => (clase="reminder", icono="💡"),
+    :concepto => (clase="concept", icono="📝")
+)
+
+# Función base optimizada - solo genera HTML, no CSS
+function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML}, tema::Symbol)
+    config = TEMAS_CONFIG[tema]
+    
+    # Convertir contenido a HTML si es necesario
+    contenido_html = contenido isa String ? HTML(contenido) : contenido
     
     @htl("""
-    <style>
-    .$(clase)-box {
-        border: 4px solid $(config[:color_borde]);
-        background-color: $(config[:color_fondo]);
-        border-radius: 4px;
-        margin: 1em 0;
-        overflow: hidden;
-        box-shadow: 0 2px 4px $(config[:color_borde])20;
-    }
-    
-    .$(clase)-header {
-        background-color: $(config[:color_header]);
-        color: white;
-        padding: 8px 12px;
-        font-weight: bold;
-        font-size: 1.1em;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .$(clase)-content {
-        padding: 12px;
-        color: $(config[:color_texto]);
-        line-height: 1.6;
-        $(config[:estilo_contenido])
-    }
-    
-    /* Dark mode styles */
-    @media (prefers-color-scheme: dark) {
-        .$(clase)-box {
-            background-color: $(config[:fondo_dark]);
-            border-color: $(config[:borde_dark]);
-        }
-        
-        .$(clase)-header {
-            background-color: $(config[:header_dark]);
-            color: #1a1a1a;
-        }
-        
-        .$(clase)-content {
-            color: $(config[:texto_dark]);
-        }
-    }
-    
-    $(css_extra)
-    </style>
-    <div class="$(clase)-box">
-        <div class="$(clase)-header">
-            $(config[:icono]) $(titulo)
+    $(incluir_css_cuadros())
+    <div class="$(config.clase)-box">
+        <div class="$(config.clase)-header">
+            $(config.icono) $(titulo)
         </div>
-        <div class="$(clase)-content">
-            $(contenido)
+        <div class="$(config.clase)-content">
+            $(contenido_html)
         </div>
     </div>
     """)

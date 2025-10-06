@@ -217,7 +217,7 @@ const CUADROS_CSS = """
     .reminder-header { background-color: #b794f6; color: #1a1a1a; }
     .reminder-content { color: #e2e8f0; }
     
-    .warning-box { background-color: #450a0a; border-color: #f87171; }
+    .warning-box { background-color: #450a0a; border-color: #ef4444; }
     .warning-header { background-color: #ef4444; color: #1a1a1a; }
     .warning-content { color: #fca5a5; }
     
@@ -225,7 +225,7 @@ const CUADROS_CSS = """
     .memory-header { background-color: #f472b6; color: #1a1a1a; }
     .memory-content { color: #fbcfe8; }
     
-    .concept-box { background-color: #2a4973; border-color: #60a5fa; }
+    .concept-box { background-color: #2a4973; border-color: #5c8ccd; }
     .concept-header { background-color: #5c8ccd; color: #1a1a1a; }
     .concept-content { color: #bfdbfe; }
 }
@@ -243,6 +243,18 @@ function incluir_css_cuadros()
     else
         return HTML("")  # No incluir CSS adicional
     end
+end
+
+# Función para inicializar estilos manualmente (opcional)
+function inicializar_estilos()
+    CSS_INCLUIDO[] = true
+    return HTML(CUADROS_CSS)
+end
+
+# Función para resetear CSS (útil en desarrollo)
+function resetear_css()
+    CSS_INCLUIDO[] = false
+    return nothing
 end
 
 # Configuración de temas (solo metadatos)
@@ -273,8 +285,53 @@ function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML}, 
     """)
 end
 
-# Funciones específicas que utilizan la función base
-concepto(titulo, contenido) = cuadro_base(titulo, contenido, :concepto)
-cuidado(titulo, contenido) = cuadro_base(titulo, contenido, :cuidado)
-truco(titulo, contenido) = cuadro_base(titulo, contenido, :truco)
-recuerdo(titulo, contenido) = cuadro_base(titulo, contenido, :recuerdo)
+# Funciones específicas optimizadas - VERSIÓN RÁPIDA
+# Estas son más rápidas porque evitan el overhead de cuadro_base()
+
+# Función ultra-rápida para truco (sin CSS dinámico)
+function truco(titulo, contenido)
+    contenido_html = contenido isa String ? HTML(contenido) : contenido
+    @htl("""
+    $(incluir_css_cuadros())
+    <div class="reminder-box">
+        <div class="reminder-header">💡 $(titulo)</div>
+        <div class="reminder-content">$(contenido_html)</div>
+    </div>
+    """)
+end
+
+function cuidado(titulo, contenido)
+    contenido_html = contenido isa String ? HTML(contenido) : contenido
+    @htl("""
+    $(incluir_css_cuadros())
+    <div class="warning-box">
+        <div class="warning-header">⚠️ $(titulo)</div>
+        <div class="warning-content">$(contenido_html)</div>
+    </div>
+    """)
+end
+
+function recuerdo(titulo, contenido)
+    contenido_html = contenido isa String ? HTML(contenido) : contenido
+    @htl("""
+    $(incluir_css_cuadros())
+    <div class="memory-box">
+        <div class="memory-header">💭 $(titulo)</div>
+        <div class="memory-content">$(contenido_html)</div>
+    </div>
+    """)
+end
+
+function concepto(titulo, contenido)
+    contenido_html = contenido isa String ? HTML(contenido) : contenido
+    @htl("""
+    $(incluir_css_cuadros())
+    <div class="concept-box">
+        <div class="concept-header">📝 $(titulo)</div>
+        <div class="concept-content">$(contenido_html)</div>
+    </div>
+    """)
+end
+
+# Mantener cuadro_base para casos especiales si es necesario
+# concepto_avanzado(titulo, contenido) = cuadro_base(titulo, contenido, :concepto)

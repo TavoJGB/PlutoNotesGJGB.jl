@@ -137,7 +137,7 @@ const CUADROS_CSS = """
 .warning-box {
     border: 4px solid #dc2626;
     background-color: #fef2f2;
-    border-radius: 6px;
+    border-radius: 8px;
     margin: 1em 0;
     overflow: hidden;
     box-shadow: 0 2px 4px #dc262620;
@@ -162,7 +162,7 @@ const CUADROS_CSS = """
 .memory-box {
     border: 4px solid #ec4899;
     background-color: #fdf2f8;
-    border-radius: 4px;
+    border-radius: 8px;
     margin: 1em 0;
     overflow: hidden;
     box-shadow: 0 2px 4px #ec489920;
@@ -188,7 +188,7 @@ const CUADROS_CSS = """
 .concept-box {
     border: 4px solid #2563eb;
     background-color: #eff6ff;
-    border-radius: 4px;
+    border-radius: 8px;
     margin: 1em 0;
     overflow: hidden;
     box-shadow: 0 2px 4px #2563eb20;
@@ -220,7 +220,7 @@ const CUADROS_CSS = """
     .warning-header { background-color: #ef4444; color: #1a1a1a; }
     .warning-content { color: #fca5a5; }
     
-    .memory-box { background-color: #500724; border-color: #f472b6; }
+    .memory-box { background-color: #732a51; border-color: #f472b6; }
     .memory-header { background-color: #f472b6; color: #1a1a1a; }
     .memory-content { color: #fbcfe8; }
     

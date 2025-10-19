@@ -145,16 +145,28 @@ const CUADROS_CSS = """
     color: #2d3748;
 }
 
-/* Cuidado - Rojo */
-.cuadro-cuidado {
+/* Peligro - Rojo */
+.cuadro-peligro {
     border-color: #dc2626;
     background-color: #fef2f2;
 }
-.cuadro-cuidado .cuadro-base-header {
+.cuadro-peligro .cuadro-base-header {
     background-color: #dc2626;
 }
-.cuadro-cuidado .cuadro-base-content {
+.cuadro-peligro .cuadro-base-content {
     color: #7f1d1d;
+}
+
+/* Atención - Naranja */
+.cuadro-atencion {
+    border-color: #f59e0b;
+    background-color: #fffbeb;
+}
+.cuadro-atencion .cuadro-base-header {
+    background-color: #f59e0b;
+}
+.cuadro-atencion .cuadro-base-content {
+    color: #78350f;
 }
 
 /* Recuerdo - Rosa */
@@ -195,16 +207,28 @@ const CUADROS_CSS = """
         color: #e2e8f0;
     }
     
-    .cuadro-cuidado {
+    .cuadro-peligro {
         background-color: #450a0a;
         border-color: #ef4444;
     }
-    .cuadro-cuidado .cuadro-base-header {
+    .cuadro-peligro .cuadro-base-header {
         background-color: #ef4444;
         color: #1a1a1a;
     }
-    .cuadro-cuidado .cuadro-base-content {
+    .cuadro-peligro .cuadro-base-content {
         color: #fbcfcf;
+    }
+
+    .cuadro-atencion {
+        background-color: #45350a;
+        border-color: #f59e0b;
+    }
+    .cuadro-atencion .cuadro-base-header {
+        background-color: #f59e0b;
+        color: #1a1a1a;
+    }
+    .cuadro-atencion .cuadro-base-content {
+        color: #fef3c7;
     }
     
     .cuadro-recuerdo {
@@ -262,7 +286,8 @@ end
 # Configuración de temas (solo metadatos)
 const TEMAS_CONFIG = Dict(
     :recuerdo => (clase="cuadro-recuerdo", icono="💭"),
-    :cuidado => (clase="cuadro-cuidado", icono="⚠️"),
+    :peligro => (clase="cuadro-peligro", icono="☢️"),
+    :atención => (clase="cuadro-atencion", icono="⚠️"),
     :truco => (clase="cuadro-truco", icono="💡"),
     :concepto => (clase="cuadro-concepto", icono="📝")
 )
@@ -287,53 +312,10 @@ function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML}, 
     """)
 end
 
-# Funciones específicas optimizadas - VERSIÓN RÁPIDA
-# Estas son más rápidas porque evitan el overhead de cuadro_base()
-
-# Función ultra-rápida para truco (sin CSS dinámico)
-function truco(titulo, contenido)
-    contenido_html = contenido isa String ? HTML(contenido) : contenido
-    @htl("""
-    $(incluir_css_cuadros())
-    <div class="cuadro-base cuadro-truco">
-        <div class="cuadro-base-header">💡 $(titulo)</div>
-        <div class="cuadro-base-content">$(contenido_html)</div>
-    </div>
-    """)
-end
-
-function cuidado(titulo, contenido)
-    contenido_html = contenido isa String ? HTML(contenido) : contenido
-    @htl("""
-    $(incluir_css_cuadros())
-    <div class="cuadro-base cuadro-cuidado">
-        <div class="cuadro-base-header">⚠️ $(titulo)</div>
-        <div class="cuadro-base-content">$(contenido_html)</div>
-    </div>
-    """)
-end
-
-function recuerdo(titulo, contenido)
-    contenido_html = contenido isa String ? HTML(contenido) : contenido
-    @htl("""
-    $(incluir_css_cuadros())
-    <div class="cuadro-base cuadro-recuerdo">
-        <div class="cuadro-base-header">💭 $(titulo)</div>
-        <div class="cuadro-base-content">$(contenido_html)</div>
-    </div>
-    """)
-end
-
-function concepto(titulo, contenido)
-    contenido_html = contenido isa String ? HTML(contenido) : contenido
-    @htl("""
-    $(incluir_css_cuadros())
-    <div class="cuadro-base cuadro-concepto">
-        <div class="cuadro-base-header">📝 $(titulo)</div>
-        <div class="cuadro-base-content">$(contenido_html)</div>
-    </div>
-    """)
-end
-
-# Mantener cuadro_base para casos especiales si es necesario
-# concepto_avanzado(titulo, contenido) = cuadro_base(titulo, contenido, :concepto)
+# Funciones específicas - wrappers simples alrededor de cuadro_base
+# Toda la configuración (iconos, colores) está centralizada en TEMAS_CONFIG
+truco(titulo, contenido) = cuadro_base(titulo, contenido, :truco)
+peligro(titulo, contenido) = cuadro_base(titulo, contenido, :peligro)
+atencion(titulo, contenido) = cuadro_base(titulo, contenido, :atención)
+recuerdo(titulo, contenido) = cuadro_base(titulo, contenido, :recuerdo)
+concepto(titulo, contenido) = cuadro_base(titulo, contenido, :concepto)

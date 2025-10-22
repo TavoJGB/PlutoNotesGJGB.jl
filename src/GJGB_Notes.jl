@@ -19,7 +19,7 @@ module GJGB_Notes
     # Load other dependencies
     include("./dep/Functions.jl")
     export set_language!
-    export cita, resaltar, enlace, corregir
+    export lista, cita, resaltar, enlace, corregir
     export concepto, peligro, atencion, truco, recuerdo
     
 end

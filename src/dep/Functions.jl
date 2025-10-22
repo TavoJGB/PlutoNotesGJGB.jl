@@ -76,6 +76,32 @@ resaltar(texto; color="orange") = "<span style=color:$color><strong>" * texto * 
 enlace(texto, url) = """<a href="$url" target="_blank">$texto</a>"""
 
 
+#===========================================================================
+    LISTAS ORDENADAS
+===========================================================================#
+
+# Generador de listas ordenadas a partir de un vector de items.
+# Acepta String, Markdown.MD o HTML para cada punto.
+function lista(puntos::AbstractVector{T}) where {T<:Union{String,Markdown.MD,HTML}}
+    # Normalizar cada elemento: si es String lo convertimos a HTML;
+    # Markdown.MD y HTML se mantienen para que @htl los procese correctamente.
+    items = [p isa String ? HTML(p) : p for p in puntos]
+
+    # Construir una lista de elementos <li> usando @htl para preservar tipos
+    li_items = [ @htl("""<li>$(it)</li>""") for it in items ]
+
+    # Devolver el HTML final como un bloque <ol>
+    return @htl("""
+    <ol>
+        $(li_items...)
+    </ol>
+    """)
+end
+# Versión más permisiva que acepta cualquier vector y convierte a string cuando sea necesario
+lista(puntos::AbstractVector) = lista([p isa String ? p : (p isa Markdown.MD || p isa HTML ? p : string(p)) for p in puntos])
+lista(args...) = lista(collect(args))  # Permite pasar múltiples argumentos
+
+
 
 #===========================================================================
     CITACIÓN

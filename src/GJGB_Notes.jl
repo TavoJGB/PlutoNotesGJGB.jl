@@ -20,6 +20,6 @@ module GJGB_Notes
     include("./dep/Functions.jl")
     export set_language!
     export lista, cita, resaltar, enlace, corregir
-    export concepto, peligro, atencion, truco, recuerdo
+    export concepto, peligro, atencion, truco, recuerdo, consejo
     
 end

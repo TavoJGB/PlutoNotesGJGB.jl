@@ -271,6 +271,18 @@ const CUADROS_CSS = """
     color: #1e3a8a;
 }
 
+/* Consejo - Verde Menta/Cyan */
+.cuadro-consejo {
+    border-color: #06b6d4;
+    background-color: #ecfeff;
+}
+.cuadro-consejo .cuadro-base-header {
+    background-color: #06b6d4;
+}
+.cuadro-consejo .cuadro-base-content {
+    color: #164e63;
+}
+
 /* Dark mode styles - Solo modificadores de color */
 @media (prefers-color-scheme: dark) {
     .cuadro-truco {
@@ -332,6 +344,18 @@ const CUADROS_CSS = """
     .cuadro-concepto .cuadro-base-content {
         color: #bfdbfe;
     }
+    
+    .cuadro-consejo {
+        background-color: #164e63;
+        border-color: #67e8f9;
+    }
+    .cuadro-consejo .cuadro-base-header {
+        background-color: #67e8f9;
+        color: #1a1a1a;
+    }
+    .cuadro-consejo .cuadro-base-content {
+        color: #cffafe;
+    }
 }
 </style>
 """
@@ -367,7 +391,8 @@ const TEMAS_CONFIG = Dict(
     :peligro => (clase="cuadro-peligro", icono="☢️"),
     :atención => (clase="cuadro-atencion", icono="⚠️"),
     :truco => (clase="cuadro-truco", icono="💡"),
-    :concepto => (clase="cuadro-concepto", icono="📝")
+    :concepto => (clase="cuadro-concepto", icono="📝"),
+    :consejo => (clase="cuadro-consejo", icono="🤓")
 )
 
 # Función base optimizada - solo genera HTML, no CSS
@@ -397,3 +422,4 @@ peligro(titulo, contenido) = cuadro_base(titulo, contenido, :peligro)
 atencion(titulo, contenido) = cuadro_base(titulo, contenido, :atención)
 recuerdo(titulo, contenido) = cuadro_base(titulo, contenido, :recuerdo)
 concepto(titulo, contenido) = cuadro_base(titulo, contenido, :concepto)
+consejo(titulo, contenido) = cuadro_base(titulo, contenido, :consejo)

@@ -4,3 +4,4 @@ repo = "https://github.com/TavoJGB/GJGB_Notes.jl"
 description = "My structs and functions for Pluto notes."
 
 [packages]
+41ebad20-1491-4b27-9223-af85960c7184 = { name = "PlutoNotesGJGB", path = "P/PlutoNotesGJGB" }

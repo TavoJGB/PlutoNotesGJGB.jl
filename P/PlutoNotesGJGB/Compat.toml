@@ -1,0 +1,8 @@
+[1]
+HypertextLiteral = "0.9.5 - 0.9"
+Markdown = "1.11.0 - 1"
+Parameters = "0.12.3 - 0.12"
+PlutoUI = "0.7.71 - 0.7"
+Preferences = "1.5.0 - 1"
+Reexport = "1.2.2 - 1"
+julia = "1.6.7 - 1"

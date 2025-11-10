@@ -1,6 +1,6 @@
-name = "GJGB_Notes.jl"
+name = "PlutoNotesGJGB.jl"
 uuid = "e67aa1c4-e108-4233-888b-b76f089eefb8"
-repo = "https://github.com/TavoJGB/GJGB_Notes.jl"
+repo = "https://github.com/TavoJGB/PlutoNotesGJGB.jl"
 description = "My structs and functions for Pluto notes."
 
 [packages]

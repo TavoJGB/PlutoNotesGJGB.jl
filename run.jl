@@ -1,3 +1,3 @@
-using GJGB_Notes
+using PlutoNotesGJGB
 set_language!("esp")
-saluda()
+PlutoNotesGJGB.saluda()

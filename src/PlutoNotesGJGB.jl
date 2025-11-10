@@ -1,4 +1,4 @@
-module GJGB_Notes
+module PlutoNotesGJGB
 
     # Packages
     using HypertextLiteral: @htl, @htl_str # necesario para cita()

@@ -2,9 +2,9 @@
     TEST
 ===========================================================================#
 
-saluda(::Español) = "¡Hola! Estás usando GJGB_Notes en español."
-saluda(::English) = "Hello! You are using GJGB_Notes in English."
-saluda(::Français) = "Bonjour! Vous utilisez GJGB_Notes en français."
+saluda(::Español) = "¡Hola! Estás usando PlutoNotesGJGB en español."
+saluda(::English) = "Hello! You are using PlutoNotesGJGB in English."
+saluda(::Français) = "Bonjour! Vous utilisez PlutoNotesGJGB en français."
 saluda() = saluda(IDIOMA)
 
 
@@ -31,9 +31,9 @@ function set_language!(idioma::String)::Nothing
     else
         idioma_sel = idioma_sel[1]
         mostrar = Dict(
-            "español" => "Has seleccionado cambiar GJGB_Notes a español. Ahora reinicia Julia para aplicar los cambios.",
-            "english" => "You selected to change GJGB_Notes to English. Please restart Julia to apply the changes.",
-            "français" => "Vous avez sélectionné de changer GJGB_Notes à français. Redémarrez Julia pour appliquer les changements."
+            "español" => "Has seleccionado cambiar PlutoNotesGJGB a español. Ahora reinicia Julia para aplicar los cambios.",
+            "english" => "You selected to change PlutoNotesGJGB to English. Please restart Julia to apply the changes.",
+            "français" => "Vous avez sélectionné de changer PlutoNotesGJGB à français. Redémarrez Julia pour appliquer les changements."
         )[idioma_sel]
         println(mostrar)
     end

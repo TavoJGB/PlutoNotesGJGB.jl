@@ -4,4 +4,5 @@ description = "Local registry for TavoJGB packages"
 
 [packages]
 41ebad20-1491-4b27-9223-af85960c7184 = { name = "PlutoNotesGJGB", path = "P/PlutoNotesGJGB" }
+71b857e6-b8ff-4f2c-8ecf-4fabc14d1aac = { name = "ReadEFF", path = "R/ReadEFF" }
 a0aff591-8b5e-472e-9d15-fd720d7e0df8 = { name = "DataReader", path = "D/DataReader" }

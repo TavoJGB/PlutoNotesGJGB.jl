@@ -5,3 +5,4 @@ description = "My structs and functions for Pluto notes."
 
 [packages]
 41ebad20-1491-4b27-9223-af85960c7184 = { name = "PlutoNotesGJGB", path = "P/PlutoNotesGJGB" }
+a0aff591-8b5e-472e-9d15-fd720d7e0df8 = { name = "DataReader", path = "D/DataReader" }

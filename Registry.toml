@@ -1,6 +1,5 @@
 name = "TavoJGBRegistry"
 uuid = "e67aa1c4-e108-4233-888b-b76f089eefb8"
-repo = "https://github.com/TavoJGB/PlutoNotesGJGB.jl"
 description = "Local registry for TavoJGB packages"
 
 [packages]

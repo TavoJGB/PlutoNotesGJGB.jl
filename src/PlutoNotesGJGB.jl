@@ -1,7 +1,7 @@
 module PlutoNotesGJGB
 
     # Packages
-    using HypertextLiteral: @htl, @htl_str # necesario para cita()
+    using HypertextLiteral # necesario para cita() y cuadro_base()
     using Markdown
     using Parameters
     using Preferences # for Language choice

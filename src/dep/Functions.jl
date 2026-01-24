@@ -396,7 +396,7 @@ const TEMAS_CONFIG = Dict(
 )
 
 # Función base optimizada - solo genera HTML, no CSS
-function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML}, tema::Symbol)
+function cuadro_base(titulo::String, contenido::Union{String,Markdown.MD,HTML,HypertextLiteral.Result}, tema::Symbol)
     config = TEMAS_CONFIG[tema]
     
     # Convertir contenido a HTML si es necesario

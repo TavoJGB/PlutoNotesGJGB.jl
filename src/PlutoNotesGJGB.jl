@@ -8,6 +8,7 @@ module PlutoNotesGJGB
 
     # Load structs
     include("./dep/Structs.jl")
+        export Ejercicio
 
     # Load language choice
     const IDIOMA = Dict(
@@ -17,9 +18,17 @@ module PlutoNotesGJGB
     )[@load_preference("idioma", "español")]
 
     # Load other dependencies
-    include("./dep/Functions.jl")
-    export set_language!
-    export lista, cita, resaltar, enlace, corregir
-    export concepto, peligro, atencion, truco, recuerdo, consejo
+    include(joinpath("dep","Cita.jl"))
+        export cita
+    include(joinpath("dep","Cuadros.jl"))
+        export concepto, peligro, atencion, truco, recuerdo, consejo
+    include(joinpath("dep","Ejercicios.jl"))
+        export corregir
+    include(joinpath("dep","Idiomas.jl"))
+        export set_language!
+    include(joinpath("dep","Listas.jl"))
+        export lista
+    include(joinpath("dep","Texto.jl"))
+        export resaltar, enlace
     
 end

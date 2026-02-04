@@ -24,6 +24,8 @@ module PlutoNotesGJGB
         export concepto, peligro, atencion, truco, recuerdo, consejo
     include(joinpath("dep","Ejercicios.jl"))
         export corregir
+    include(joinpath("dep","Globo.jl"))
+        export globo
     include(joinpath("dep","Idiomas.jl"))
         export set_language!
     include(joinpath("dep","Listas.jl"))

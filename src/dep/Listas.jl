@@ -14,15 +14,13 @@ function lista(puntos::AbstractVector{T}; tipo::String="ol", indent::Bool=true) 
     # Construir una lista de elementos <li> usando @htl para preservar tipos
     li_items = [ @htl("""<li>$(it)</li>""") for it in items ]
 
-    # Atributos para eliminar el margen izquierdo (cadena para insertar en la etiqueta)
+    # Construir las etiquetas de apertura y cierre como strings
     attrhtml = indent ? "" : " style='margin:0;padding-left:0;margin-left:0;'"
-
-    # Construir la cadena HTML final concatenando los <li> ya procesados por @htl
-    # (li_items son objetos que al convertirlos a string devuelven su HTML)
-    inner = join(string.(li_items), "")
-    full = "<" * tipo * attrhtml * ">" * inner * "</" * tipo * ">"
-
-    return HTML(full)
+    tag_open = "<" * tipo * attrhtml * ">"
+    tag_close = "</" * tipo * ">"
+    
+    # Usar @htl con Bypass para las etiquetas dinámicas
+    return @htl("""$(HypertextLiteral.Bypass(tag_open))$(li_items...)$(HypertextLiteral.Bypass(tag_close))""")
 end
 
 # Versión más permisiva que acepta cualquier vector y convierte a string cuando sea necesario

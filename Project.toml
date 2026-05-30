@@ -13,7 +13,6 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 [compat]
 HypertextLiteral = "0.9.5"
-Markdown = "1.11.0"
 Parameters = "0.12.3"
 PlutoUI = "0.7.71"
 Preferences = "1.5.0"

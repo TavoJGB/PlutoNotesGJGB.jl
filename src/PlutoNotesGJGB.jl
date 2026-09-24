@@ -10,12 +10,34 @@ module PlutoNotesGJGB
     include("./dep/Structs.jl")
         export Ejercicio
 
+    # Normaliza preferencias antiguas o inválidas para evitar errores al cargar el paquete.
+    function _resolve_language(pref::String)
+        pref_norm = lowercase(strip(pref))
+        aliases = Dict(
+            "es" => "español",
+            "espanol" => "español",
+            "español" => "español",
+            "en" => "english",
+            "english" => "english",
+            "fr" => "français",
+            "francais" => "français",
+            "français" => "français"
+        )
+
+        selected = get(aliases, pref_norm, "español")
+        if selected == "español" && pref_norm ∉ keys(aliases)
+            @warn "Idioma '$pref' no reconocido en preferencias. Usando español por defecto."
+        end
+        return selected
+    end
+
     # Load language choice
+    _pref_language = @load_preference("idioma", "español")
     const IDIOMA = Dict(
         "español" => Español(),
         "english" => English(),
         "français" => Français()
-    )[@load_preference("idioma", "español")]
+    )[_resolve_language(_pref_language)]
 
     # Load other dependencies
     include(joinpath("dep","Cita.jl"))

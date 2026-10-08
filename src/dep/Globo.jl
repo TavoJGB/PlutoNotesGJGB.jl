@@ -36,7 +36,7 @@ const _GLOBO_ESTILOS = @htl("""
 	<style id="globo-styles">
 		.tooltip-clave {
 			position: relative;
-			display: inline-block;
+			display: inline;
 			cursor: help;
 			border-bottom: 1px dotted var(--globo-borde-color, #666);
 		}
@@ -78,8 +78,15 @@ function _globo_inline_html(expansion)
 	html = sprint(show, MIME"text/html"(), expansion)
 	html = strip(html)
 	html = replace(html, r"(?is)</p>\s*<p>" => "<br><br>")
+	html = replace(html, r"(?is)</div>\s*<div>" => "<br><br>")
 	html = replace(html, r"(?is)^<p>" => "")
 	html = replace(html, r"(?is)</p>$" => "")
+	html = replace(html, r"(?is)^<div>" => "")
+	html = replace(html, r"(?is)</div>$" => "")
+	html = replace(html, r"(?is)<p(\s[^>]*)?>" => "<span>")
+	html = replace(html, r"(?is)</p>" => "</span>")
+	html = replace(html, r"(?is)<div(\s[^>]*)?>" => "<span>")
+	html = replace(html, r"(?is)</div>" => "</span>")
 	return HTML(html)
 end
 
@@ -107,12 +114,12 @@ function globo(clave::AbstractString, expansion;
 	if negrita
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<div class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><div class="tooltip-exp">$expansion</div></div>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><span class="tooltip-exp">$expansion</span></span>
 		""")
 	else
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<div class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<div class="tooltip-exp">$expansion</div></div>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<span class="tooltip-exp">$expansion</span></span>
 		""")
 	end
 end

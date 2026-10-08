@@ -36,7 +36,7 @@ const _GLOBO_ESTILOS = @htl("""
 	<style id="globo-styles">
 		.tooltip-clave {
 			position: relative;
-			display: inline;
+			display: inline-block;
 			cursor: help;
 			border-bottom: 1px dotted var(--globo-borde-color, #666);
 		}
@@ -107,12 +107,12 @@ function globo(clave::AbstractString, expansion;
 	if negrita
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><span class="tooltip-exp">$expansion</span></span>
+			<div class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><div class="tooltip-exp">$expansion</div></div>
 		""")
 	else
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<span class="tooltip-exp">$expansion</span></span>
+			<div class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<div class="tooltip-exp">$expansion</div></div>
 		""")
 	end
 end

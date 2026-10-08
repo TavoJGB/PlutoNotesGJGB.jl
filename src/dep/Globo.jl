@@ -68,6 +68,18 @@ const _GLOBO_ESTILOS = @htl("""
 	</style>
 """)
 
+# Convierte Markdown simple a HTML inline para evitar que <p> rompa el flujo del texto.
+function _globo_contenido(expansion::Markdown.MD)
+	html = sprint(Markdown.html, expansion)
+	html = strip(html)
+	if startswith(html, "<p>") && endswith(html, "</p>")
+		html = html[4:end-4]
+	end
+	return HTML(html)
+end
+
+_globo_contenido(expansion) = expansion
+
 # Función para crear globos (tooltips) interactivos
 # `expansion` puede ser String, Markdown o HTML ya renderizado.
 function globo(clave::AbstractString, expansion; 
@@ -79,18 +91,20 @@ function globo(clave::AbstractString, expansion;
 	           borde::String="#666",
 	           radio::String="8px",
 	           padding::String="10px")
+
+	expansion = _globo_contenido(expansion)
 	
 	estilo_valor = "--globo-ancho:$ancho; --globo-fondo:$fondo; --globo-texto:$texto; --globo-fuente:$fuente; --globo-borde-color:$borde; --globo-radio:$radio; --globo-padding:$padding;"
 	
 	if negrita
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><div class="tooltip-exp">$expansion</div></span>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><span class="tooltip-exp">$expansion</span></span>
 		""")
 	else
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<div class="tooltip-exp">$expansion</div></span>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<span class="tooltip-exp">$expansion</span></span>
 		""")
 	end
 end

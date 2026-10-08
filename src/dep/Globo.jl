@@ -83,10 +83,6 @@ function _globo_inline_html(expansion)
 	html = replace(html, r"(?is)</p>$" => "")
 	html = replace(html, r"(?is)^<div>" => "")
 	html = replace(html, r"(?is)</div>$" => "")
-	html = replace(html, r"(?is)<p(\s[^>]*)?>" => "<span>")
-	html = replace(html, r"(?is)</p>" => "</span>")
-	html = replace(html, r"(?is)<div(\s[^>]*)?>" => "<span>")
-	html = replace(html, r"(?is)</div>" => "</span>")
 	return HTML(html)
 end
 

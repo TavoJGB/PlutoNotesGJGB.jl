@@ -33,6 +33,17 @@ const _GLOBO_ESTILOS = @htl("""
 				const tooltip = window.__globoEnsureTooltip();
 				tooltip.innerHTML = template.innerHTML;
 
+				if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+					window.MathJax.typesetPromise([tooltip]).catch(function () {});
+				} else if (typeof window.renderMathInElement === 'function') {
+					window.renderMathInElement(tooltip, {
+						delimiters: [
+							{left: '\$\$', right: '\$\$', display: true},
+							{left: '\$', right: '\$', display: false}
+						]
+					});
+				}
+
 				const cs = getComputedStyle(host);
 				tooltip.style.setProperty('--globo-ancho', cs.getPropertyValue('--globo-ancho'));
 				tooltip.style.setProperty('--globo-fondo', cs.getPropertyValue('--globo-fondo'));
@@ -83,6 +94,7 @@ const _GLOBO_ESTILOS = @htl("""
 			opacity: 0;
 			transition: opacity 0.3s;
 			font-size: var(--globo-fuente, 14px);
+			font-family: inherit;
 			line-height: 1.5;
 			box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 			pointer-events: none;
@@ -100,6 +112,9 @@ const _GLOBO_ESTILOS = @htl("""
 	</style>
 """)
 
+_globo_contenido(expansion::Markdown.MD) = HTML(sprint(show, MIME"text/html"(), expansion))
+_globo_contenido(expansion) = expansion
+
 # Función para crear globos (tooltips) interactivos
 # `expansion` puede ser String, Markdown o HTML ya renderizado.
 function globo(clave::AbstractString, expansion; 
@@ -111,6 +126,8 @@ function globo(clave::AbstractString, expansion;
 	           borde::String="#666",
 	           radio::String="8px",
 	           padding::String="10px")
+
+	expansion = _globo_contenido(expansion)
 	
 	estilo_valor = "--globo-ancho:$ancho; --globo-fondo:$fondo; --globo-texto:$texto; --globo-fuente:$fuente; --globo-borde-color:$borde; --globo-radio:$radio; --globo-padding:$padding;"
 	

@@ -69,7 +69,8 @@ const _GLOBO_ESTILOS = @htl("""
 """)
 
 # Función para crear globos (tooltips) interactivos
-function globo(clave::String, expansion::String; 
+# `expansion` puede ser String, Markdown o HTML ya renderizado.
+function globo(clave::AbstractString, expansion; 
 	           negrita::Bool=true,
 	           ancho::String="320px",
 	           fondo::String="#555",
@@ -84,12 +85,12 @@ function globo(clave::String, expansion::String;
 	if negrita
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><span class="tooltip-exp">$expansion</span></span>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)"><b>$clave</b><div class="tooltip-exp">$expansion</div></span>
 		""")
 	else
 		@htl("""
 			$(_GLOBO_ESTILOS)
-			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<span class="tooltip-exp">$expansion</span></span>
+			<span class="tooltip-clave" style=$estilo_valor onmouseover="positionTooltip(event)" onmousemove="positionTooltip(event)">$clave<div class="tooltip-exp">$expansion</div></span>
 		""")
 	end
 end

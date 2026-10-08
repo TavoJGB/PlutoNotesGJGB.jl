@@ -60,6 +60,10 @@ const _GLOBO_ESTILOS = @htl("""
 			pointer-events: none;
 			white-space: normal;
 		}
+
+		.tooltip-clave .tooltip-exp p {
+			margin: 0;
+		}
 		
 		.tooltip-clave:hover .tooltip-exp {
 			visibility: visible;
@@ -68,16 +72,20 @@ const _GLOBO_ESTILOS = @htl("""
 	</style>
 """)
 
-# Convierte Markdown simple a HTML inline para evitar que <p> rompa el flujo del texto.
-function _globo_contenido(expansion::Markdown.MD)
-	html = sprint(Markdown.html, expansion)
+# Convierte HTML de bloque (párrafos) a una versión inline para que permanezca
+# dentro del tooltip oculto y no rompa el texto principal.
+function _globo_inline_html(expansion)
+	html = sprint(show, MIME"text/html"(), expansion)
 	html = strip(html)
-	if startswith(html, "<p>") && endswith(html, "</p>")
-		html = html[4:end-4]
-	end
+	html = replace(html, r"(?is)</p>\s*<p>" => "<br><br>")
+	html = replace(html, r"(?is)^<p>" => "")
+	html = replace(html, r"(?is)</p>$" => "")
 	return HTML(html)
 end
 
+_globo_contenido(expansion::AbstractString) = expansion
+_globo_contenido(expansion::Markdown.MD) = _globo_inline_html(expansion)
+_globo_contenido(expansion::HypertextLiteral.Result) = _globo_inline_html(expansion)
 _globo_contenido(expansion) = expansion
 
 # Función para crear globos (tooltips) interactivos
